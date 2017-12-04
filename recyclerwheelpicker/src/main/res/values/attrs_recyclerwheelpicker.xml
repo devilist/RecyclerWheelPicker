@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RecyclerWheelPicker">
+        <attr name="rwp_textSize" format="dimension|reference" />
+        <attr name="rwp_textColor" format="color|reference" />
+        <attr name="rwp_unitSize" format="dimension|reference" />
+        <attr name="rwp_unitColor" format="color|reference" />
+        <attr name="rwp_decorationColor" format="color|reference" />
+        <attr name="rwp_decorationSize" format="dimension|reference" />
+    </declare-styleable>
+</resources>

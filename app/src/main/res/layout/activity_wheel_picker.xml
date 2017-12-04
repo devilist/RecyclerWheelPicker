@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/tv_single"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="single"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_double"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="double city"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_number_range_single"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="60dp"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="number_range single"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_number_range_double"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="60dp"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="number_range double"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_triple"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="120dp"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="triple_city"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_triple_date"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentRight="true"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="triple_date"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tv_triple_time_3"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="180dp"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="triple_time_3"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_triple_time_2"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="180dp"
+        android:layout_alignParentRight="true"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="triple_time_2"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_pw"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="240dp"
+        android:background="#999999"
+        android:gravity="center"
+        android:text="password"
+        android:textSize="20sp" />
+
+</RelativeLayout>

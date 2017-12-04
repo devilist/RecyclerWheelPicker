@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/colorAccent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <com.devilist.recyclerwheelpicker.widget.RecyclerWheelPicker
+        android:id="@+id/rv_picker1"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@android:color/white"
+        android:layout_weight="1"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        app:rwp_unitSize="18sp" />
+
+</LinearLayout>
