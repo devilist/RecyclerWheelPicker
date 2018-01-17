@@ -151,6 +151,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
   本库所有的滚轮选择器都是基于RecyclerWheelPicker这个自定义的滚轮控件封装而成。
   如果本库已经提供的封装好的滚轮控件不能满足业务需求，可按照自己的喜好用此控件封装。
   RecyclerWheelPicker的一些用法：
+
   a. xml属性attr:
       ```
       rwp_textSize              // 文字大小
@@ -171,6 +172,18 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
       setDecoration(IDecoration mDecoration)                    设置选中区域样式
       release()                                                 释放音频资源
       ```
+
   b. 滚动监听
+    ```
+    interface OnWheelScrollListener {
+            void onWheelScrollChanged(RecyclerWheelPicker wheelPicker, boolean isScrolling, int position, Data data);
+        }
+    ```
+    参数说明：
+    isScrolling：是否正在滚动
+    position：选中位置，正在滚动时返回无效位置-1
+    data：选中位置的数据，正在滚动时返回null
+
+  c.选中区域样式装饰接口
 
 
