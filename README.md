@@ -171,7 +171,6 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
       setDecoration(IDecoration mDecoration)                    设置选中区域样式
       release()                                                 释放音频资源
       ```
-
   b. 滚动监听
 
 
