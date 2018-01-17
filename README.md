@@ -184,6 +184,28 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
     position：选中位置，正在滚动时返回无效位置-1
     data：选中位置的数据，正在滚动时返回null
 
-  c.选中区域样式装饰接口
+  b.选中区域样式装饰接口
+    选中区域的样式可以自定义，通过实现以下接口完成自定义工作：
+```
+    interface IDecoration {
+        void drawDecoration(RecyclerWheelPicker picker, Canvas c, Rect decorationRect, Paint decorationPaint);
+    }
+```
+    参数说明：
+    decorationRect：选中区域的rect
+    decorationPaint：用于绘制选中区域的paint
+
+    本库提供了一个默认的实现DefaultDecoration，样式为上下两条细线。
+    在PasswordPicker中提供了另一种实现，代码如下，以作参考：
+```
+     public void drawDecoration(RecyclerWheelPicker picker, Canvas c,
+                                            Rect decorationRect, Paint decorationPaint) {
+      decorationPaint.setColor(Color.BLACK);
+      decorationPaint.setStrokeWidth(2);
+      decorationRect.set(10, 10, picker.getWidth() - 10, picker.getHeight() - 10);
+      c.drawRect(decorationRect, decorationPaint);
+    }
+```
+    e
 
 
