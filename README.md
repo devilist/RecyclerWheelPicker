@@ -63,7 +63,7 @@ range(int... range)：     数字区间 例如 range(5,100)
 ```
 limit(int... limit)  最大日期限制
 ```
-该方法用于限制最大的日期，不传默认为今天的年月日。
+该方法用于限制最大的日期，不传则默认为今天的年月日。
 如果需要只显示到某年某月某日，例如年龄必须大于18岁，可这样处理：
 ```
  Calendar calendar = Calendar.getInstance();
@@ -125,7 +125,15 @@ interface OnPickerListener {
     {.................}
 ]
 ```
-其中 data为滚轮选择的value值，item为次级滚轮的内容。各级数据按照相同的格式依次嵌套。
+数据解析类
+```
+public class Data {
+    public int id;
+    public String data;
+    public List<Data> items;
+}
+```
+其中 data为滚轮选择的value值，items为次级滚轮的内容。各级数据按照相同的格式依次嵌套。
 
 注意：
   自定义数据id时不要占用-1这个值，-1用来标记数据中的“全部”item，当你的业务需求需要让用户
@@ -138,3 +146,32 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 如何按照自定义的json结构解析将在接下来讲到。
 
 # 实现自定义的滚轮选择
+本库当然提供了实现自定义滚轮选择的方式，有两种方式可以选择：
+  1. 基于核心控件RecyclerWheelPicker进行自定义封装；
+  本库所有的滚轮选择器都是基于RecyclerWheelPicker这个自定义的滚轮控件封装而成。
+  如果本库已经提供的封装好的滚轮控件不能满足业务需求，可按照自己的喜好用此控件封装。
+  RecyclerWheelPicker的一些用法：
+  a. xml属性attr:
+      ```
+      rwp_textSize              // 文字大小
+      rwp_textColor             // 文字颜色
+      rwp_unitSize              // 单位大小
+      rwp_unitColor             // 单位颜色
+      rwp_decorationColor       // 选中的item区域样式
+      rwp_decorationSize        // 选中的item区域的高度
+      ```
+
+      一些需要说明的方法：
+      ```
+      scrollTargetPositionToCenter(int position)                将目标item滚动到控件中间
+      setOnWheelScrollListener(OnWheelScrollListener listener)  设置滚动监听
+      isInitFinish()                                            滚轮初始化是否完成
+      setPickerSoundEnabled(boolean enabled)                    滚动过程是否允许播放声音
+      setData(List<Data> data)                                  加载数据
+      setDecoration(IDecoration mDecoration)                    设置选中区域样式
+      release()                                                 释放音频资源
+      ```
+
+  b. 滚动监听
+
+
