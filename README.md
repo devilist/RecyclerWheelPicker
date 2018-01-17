@@ -177,21 +177,20 @@ b.一些需要说明的方法：
       setDecoration(IDecoration mDecoration)                    设置选中区域样式
       release()                                                 释放音频资源
 ```
-```
 
-    c. 滚动监听
+c. 滚动监听
 
 ```
     interface OnWheelScrollListener {
             void onWheelScrollChanged(RecyclerWheelPicker wheelPicker, boolean isScrolling, int position, Data data);
         }
 ```
-    参数说明：
+参数说明：
     isScrolling：是否正在滚动
     position：选中位置，正在滚动时返回无效位置-1
     data：选中位置的数据，正在滚动时返回null
 
-  b.选中区域样式装饰接口
+b.选中区域样式装饰接口
 
     选中区域的样式可以自定义，通过实现以下接口完成自定义工作：
 ```
@@ -199,12 +198,13 @@ b.一些需要说明的方法：
         void drawDecoration(RecyclerWheelPicker picker, Canvas c, Rect decorationRect, Paint decorationPaint);
     }
 ```
-    参数说明：
+参数说明：
     decorationRect：选中区域的rect
     decorationPaint：用于绘制选中区域的paint
 
     本库提供了一个默认的实现DefaultDecoration，样式为上下两条细线。
     在PasswordPicker中提供了另一种实现，代码如下，以作参考：
+
 ```
      public void drawDecoration(RecyclerWheelPicker picker, Canvas c,
                                             Rect decorationRect, Paint decorationPaint) {
@@ -215,7 +215,7 @@ b.一些需要说明的方法：
     }
 ```
 
-  2 通过继承抽象类WheelPicker来实现自定义滚轮选择器
+2 通过继承抽象类WheelPicker来实现自定义滚轮选择器
 
   这是一种比较简单的自定义方法，需要做两件事：
 
@@ -231,7 +231,7 @@ b.一些需要说明的方法：
       public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
       }
 ```
-      布局需要在这个方法中inflate，这个很简单
+布局需要在这个方法中inflate，这个很简单
 
 ```
        abstract protected List<Data> parseData();              // 解析数据
@@ -239,7 +239,7 @@ b.一些需要说明的方法：
        abstract protected void inflateData(List<Data> datas);  // 填充数据
        public void onWheelScrollChanged(RecyclerWheelPicker wheelPicker, boolean isScrolling, int position, Data data)
 ```
-      这四个方法必须重载
+这四个方法必须重载
 
       parseData()方法里，你可以解析自己的数据，这里不关心具体是什么格式的数据，可以是json格式，xml格式等等，
       不管如何解析，最后返回一个List<Data>即可。
@@ -247,7 +247,8 @@ b.一些需要说明的方法：
 ```
       DataParser.parserData(getContext(), builder.resInt, builder.isAll);
 ```
-      需要注意的是，采用默认解析方式，传入的数据必须严格按照前面介绍的json格式。
+
+需要注意的是，采用默认解析方式，传入的数据必须严格按照前面介绍的json格式。
 
       initView()方法里，可以完成一些view的初始化工作，比如滚轮的样式，滚动监听等设置。
 
@@ -255,13 +256,13 @@ b.一些需要说明的方法：
 
       onWheelScrollChanged方法是滚动接口回调方法，也是必须要重写的，可参考本库提供的已经封装好的滚轮器里的实现。
 
-      其他一些方法：
+其他一些方法：
 ```
       pickerClose()
 ```
-      这个方法在滚轮关闭后会被调用，如果需要释放资源，可以在这个方法里完成。这不是一个必须重载的方法。
+这个方法在滚轮关闭后会被调用，如果需要释放资源，可以在这个方法里完成。这不是一个必须重载的方法。
 
-  3 最后的一些彩蛋：
+3 最后的一些彩蛋：
 
   在抽象类WheelPicker里，还提供了另外两个用以控制滚轮选择器弹出和弹入动画的方法，这是我在我另一个专门针对
   自定义dialog动画的库里研究的一些东西，通过这两个方法，可以自由的高度的对dialogFragment的弹出和弹入动画进
@@ -276,7 +277,7 @@ b.一些需要说明的方法：
   doExitAnim(final View contentView, long animDuration)   开始退出动画
 ```
 
-  看一下doEnterAnim的默认的实现：
+看一下doEnterAnim的默认的实现：
 
 ```
   public void doEnterAnim(final View contentView, long animDuration) {
@@ -300,10 +301,10 @@ b.一些需要说明的方法：
           }
       }
 ```
-    简单说明：当滚轮选择器显示在底部时，进入动画为从底部向上弹出，采用的是属性动画；
-    如果不是显示在底部，则进入动画为逐渐放大的补间动画。
-    为什么说是高度自由的自定义动画方式呢？
-    因为你可以在这两个方法里使用系统提供的任何一种动画方式来满足你的奇思妙想！
+简单说明：当滚轮选择器显示在底部时，进入动画为从底部向上弹出，采用的是属性动画；
+如果不是显示在底部，则进入动画为逐渐放大的补间动画。
+为什么说是高度自由的自定义动画方式呢？
+因为你可以在这两个方法里使用系统提供的任何一种动画方式来满足你的奇思妙想！
 
 
 
