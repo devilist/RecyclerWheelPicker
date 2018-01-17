@@ -147,12 +147,15 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 
 # 实现自定义的滚轮选择器
 本库当然提供了实现自定义滚轮选择的方式，有两种方式可以选择：
+
   1. 基于核心控件RecyclerWheelPicker进行自定义封装；
+
   本库所有的滚轮选择器都是基于RecyclerWheelPicker这个自定义的滚轮控件封装而成。
   如果本库已经提供的封装好的滚轮控件不能满足业务需求，可按照自己的喜好用此控件封装。
   RecyclerWheelPicker的一些用法：
 
     a. xml属性attr:
+
 ```
       rwp_textSize              // 文字大小
       rwp_textColor             // 文字颜色
@@ -163,6 +166,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 ```
 
     b.一些需要说明的方法：
+
 ```
       scrollTargetPositionToCenter(int position)                将目标item滚动到控件中间
       setOnWheelScrollListener(OnWheelScrollListener listener)  设置滚动监听
@@ -174,6 +178,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 ```
 
     c. 滚动监听
+
 ```
     interface OnWheelScrollListener {
             void onWheelScrollChanged(RecyclerWheelPicker wheelPicker, boolean isScrolling, int position, Data data);
@@ -185,6 +190,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
     data：选中位置的数据，正在滚动时返回null
 
   b.选中区域样式装饰接口
+
     选中区域的样式可以自定义，通过实现以下接口完成自定义工作：
 ```
     interface IDecoration {
@@ -208,7 +214,9 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 ```
 
   2 通过继承抽象类WheelPicker来实现自定义滚轮选择器
+
   这是一种比较简单的自定义方法，需要做两件事：
+
   a.自定义布局
   b.实现WheelPicker中的抽象方法
 
@@ -250,11 +258,14 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 ```
       这个方法在滚轮关闭后会被调用，如果需要释放资源，可以在这个方法里完成。这不是一个必须重载的方法。
 
-  3 最后一些彩蛋：
+  3 最后的一些彩蛋：
+
   在抽象类WheelPicker里，还提供了另外两个用以控制滚轮选择器弹出和弹入动画的方法，这是我在我另一个专门针对
   自定义dialog动画的库里研究的一些东西，通过这两个方法，可以自由的高度的对dialogFragment的弹出和弹入动画进
   行自定义，而不是受限于只能用系统提供的通过WindowsManager设置动画的方式。如果你感兴趣可以尝试进行自定义：
+
   相关方法
+
 ```
   setEnterAnimDuration(long duration)          设置进入动画时长
   setExitAnimDuration(long duration)           设置退出动画时长
@@ -288,8 +299,9 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 ```
     简单说明：当滚轮选择器显示在底部时，进入动画为从底部向上弹出，采用的是属性动画；
     如果不是显示在底部，则进入动画为逐渐放大的补间动画。
-    为什么说时高度自由的自定义动画方式呢？
+    为什么说是高度自由的自定义动画方式呢？
     因为你可以在这两个方法里使用系统提供的任何一种动画方式来满足你的奇思妙想！
+
 
 
 
