@@ -164,6 +164,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
       rwp_decorationColor       // 选中的item区域样式
       rwp_decorationSize        // 选中的item区域的高度
 ```
+```
 
     b.一些需要说明的方法：
 
@@ -175,6 +176,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
       setData(List<Data> data)                                  加载数据
       setDecoration(IDecoration mDecoration)                    设置选中区域样式
       release()                                                 释放音频资源
+```
 ```
 
     c. 滚动监听
@@ -218,6 +220,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
   这是一种比较简单的自定义方法，需要做两件事：
 
   a.自定义布局
+
   b.实现WheelPicker中的抽象方法
 
   自定义布局很简单，这里不做说明了，布局定义好后只需inflate到WheelPicker中即可。
