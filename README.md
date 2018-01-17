@@ -154,7 +154,7 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
   如果本库已经提供的封装好的滚轮控件不能满足业务需求，可按照自己的喜好用此控件封装。
   RecyclerWheelPicker的一些用法：
 
-    a. xml属性attr:
+a. xml属性attr:
 
 ```
       rwp_textSize              // 文字大小
@@ -164,9 +164,9 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
       rwp_decorationColor       // 选中的item区域样式
       rwp_decorationSize        // 选中的item区域的高度
 ```
-```
 
-    b.一些需要说明的方法：
+
+b.一些需要说明的方法：
 
 ```
       scrollTargetPositionToCenter(int position)                将目标item滚动到控件中间
