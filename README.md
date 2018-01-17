@@ -145,25 +145,25 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
 默认是true。当你想按照自己的数据结构解析数据时，应将此方法置为false，不然将会引发数据解析错误。
 如何按照自定义的json结构解析将在接下来讲到。
 
-# 实现自定义的滚轮选择
+# 实现自定义的滚轮选择器
 本库当然提供了实现自定义滚轮选择的方式，有两种方式可以选择：
   1. 基于核心控件RecyclerWheelPicker进行自定义封装；
   本库所有的滚轮选择器都是基于RecyclerWheelPicker这个自定义的滚轮控件封装而成。
   如果本库已经提供的封装好的滚轮控件不能满足业务需求，可按照自己的喜好用此控件封装。
   RecyclerWheelPicker的一些用法：
 
-  a. xml属性attr:
-      ```
+    a. xml属性attr:
+```
       rwp_textSize              // 文字大小
       rwp_textColor             // 文字颜色
       rwp_unitSize              // 单位大小
       rwp_unitColor             // 单位颜色
       rwp_decorationColor       // 选中的item区域样式
       rwp_decorationSize        // 选中的item区域的高度
-      ```
+```
 
-      一些需要说明的方法：
-      ```
+    b.一些需要说明的方法：
+```
       scrollTargetPositionToCenter(int position)                将目标item滚动到控件中间
       setOnWheelScrollListener(OnWheelScrollListener listener)  设置滚动监听
       isInitFinish()                                            滚轮初始化是否完成
@@ -171,14 +171,14 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
       setData(List<Data> data)                                  加载数据
       setDecoration(IDecoration mDecoration)                    设置选中区域样式
       release()                                                 释放音频资源
-      ```
+```
 
-  b. 滚动监听
-    ```
+    c. 滚动监听
+```
     interface OnWheelScrollListener {
             void onWheelScrollChanged(RecyclerWheelPicker wheelPicker, boolean isScrolling, int position, Data data);
         }
-    ```
+```
     参数说明：
     isScrolling：是否正在滚动
     position：选中位置，正在滚动时返回无效位置-1
