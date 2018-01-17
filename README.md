@@ -235,6 +235,7 @@ b.选中区域样式装饰接口
 ```
 布局需要在这个方法中inflate，这个很简单
 
+
 ```
        abstract protected List<Data> parseData();              // 解析数据
        abstract protected void initView();                     // 初始化布局
@@ -246,6 +247,7 @@ b.选中区域样式装饰接口
  parseData()方法里，你可以解析自己的数据，这里不关心具体是什么格式的数据，可以是json格式，xml格式等等，
 不管如何解析，最后返回一个List<Data>即可。
 当然，也可以用默认的数据解析方式，调用如下：
+
 ```
       DataParser.parserData(getContext(), builder.resInt, builder.isAll);
 ```
@@ -258,11 +260,17 @@ inflateData(List<Data> datas)方法里进行数据的填充，可参考本库提
 
 onWheelScrollChanged方法是滚动接口回调方法，也是必须要重写的，可参考本库提供的已经封装好的滚轮器里的实现。
 
+
+
+
 其他一些方法：
 ```
       pickerClose()
 ```
 这个方法在滚轮关闭后会被调用，如果需要释放资源，可以在这个方法里完成。这不是一个必须重载的方法。
+
+
+
 
 3 最后的一些彩蛋：
 
