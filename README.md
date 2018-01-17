@@ -4,6 +4,7 @@
 
 ![image](https://github.com/devilist/RecyclerWheelPicker/raw/master/images/image.gif)
 
+# 目前提供的可直接调用的控件
 提供了一下几种选择器，可以直接调用：
 
 ```
@@ -81,5 +82,20 @@ DateWheelPicker.instance()
                         .setGravity(Gravity.BOTTOM)
                         .setPickerListener(this).build()
                         .show(getSupportFragmentManager(), "triple_time_3");
+
+```
+
+# 链式调用的方法说明
+上面列出的XXPicker全部继承自WheelPicker,因此它们既有从WheelPicker继承来的基本方法，也有各自扩展的方法，下面分别说明：
+
+1 所有XXPicker都有的方法：
+```
+setResource(@RawRes int resInt)：   // 数据源。 数据采用json格式，放在raw文件夹里。数据格式注意事项稍后会讲到
+setGravity(int gravity)：           // 滚轮显示的位置。默认底部
+showAllItem(boolean all)：          // 是否显示“不限”选项（稍后数据格式部分会将到）
+setUnits(String... units)：         // 滚轮单位
+setDefValues(String... values)：    // 滚轮启动时默认显示的值
+setDefPosition(int... defPosition)： // 滚轮启动时默认显示的位置
+setDataRelated(boolean dataRelated)： // 各滚轮数据之间是否关联，默认关联（稍后数据格式部分会讲到这个方法）
 
 ```
