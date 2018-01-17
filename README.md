@@ -88,3 +88,53 @@ length(int length)                  密码长度
 onlyNumber(boolean only)            密码是否只能是数字
 itemSize(int itemW, int itemH)      每个滚轮的尺寸
 ```
+
+# 滚轮选择结果的监听
+```
+interface OnPickerListener {
+
+ void onPickResult(String tag, String... result);
+
+ }
+
+ 参数tag用于滚轮的唯一标记，数组result为选择的结果
+
+```
+
+# 数据格式
+加载到滚轮中的数据采用json格式，例如，一个三级滚轮的json数据必须满足如下格式：
+```
+[
+  { "data": "广东",
+    "items": [
+      { "data": "全省", "id" : -1 },
+      { "data": "广州",
+        "items": [ { "data": "全市", "id" : -1 } , { "data": "越秀区" } ],
+        "id": 0 },
+      { "data": "深圳",
+        "items": [ { "data": "全市", "id" : -1 } , { "data": "福田区" }  ],
+        "id": 0 },
+      { "data": "珠海",
+        "items": [ { "data": "全市", "id" : -1 } , { "data": "香洲区" }  ],
+        "id": 0 }
+    ],
+    "id": 1 },
+    {.................},
+    {.................},
+    {.................},
+    {.................}
+]
+```
+其中 data为滚轮选择的value值，item为次级滚轮的内容。各级数据按照相同的格式依次嵌套。
+
+注意：
+  自定义数据id时不要占用-1这个值，-1用来标记数据中的“全部”item，当你的业务需求需要让用户
+选择“全部”(或者叫“不限”，“全省”，“全市”诸如此类)时，请将该item的id设为-1；
+showAllItem(boolean all)这个方法可以用来控制是否显示“全部”item。
+所以当业务需求没有“全部”item，而此方法被误调用(false)后,会将数据中所有id=-1的项目过滤掉。
+
+  setDataRelated(boolean dataRelated) 这个方法用于设置数据是否按照上面严格的嵌套结构解析。
+默认是true。当你想按照自己的数据结构解析数据时，应将此方法置为false，不然将会引发数据解析错误。
+如何按照自定义的json结构解析将在接下来讲到。
+
+# 实现自定义的滚轮选择
