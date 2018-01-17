@@ -317,6 +317,13 @@ onWheelScrollChanged方法是滚动接口回调方法，也是必须要重写的
 
 
 
+# License
+
+ Apache License
+ Version 2.0, January 2004
+ http://www.apache.org/licenses/
+
+
 
 
 
