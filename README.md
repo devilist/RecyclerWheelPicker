@@ -186,24 +186,26 @@ c. 滚动监听
         }
 ```
 参数说明：
+
     isScrolling：是否正在滚动
     position：选中位置，正在滚动时返回无效位置-1
     data：选中位置的数据，正在滚动时返回null
 
 b.选中区域样式装饰接口
 
-    选中区域的样式可以自定义，通过实现以下接口完成自定义工作：
+选中区域的样式可以自定义，通过实现以下接口完成自定义工作：
 ```
     interface IDecoration {
         void drawDecoration(RecyclerWheelPicker picker, Canvas c, Rect decorationRect, Paint decorationPaint);
     }
 ```
 参数说明：
+
     decorationRect：选中区域的rect
     decorationPaint：用于绘制选中区域的paint
 
-    本库提供了一个默认的实现DefaultDecoration，样式为上下两条细线。
-    在PasswordPicker中提供了另一种实现，代码如下，以作参考：
+本库提供了一个默认的实现DefaultDecoration，样式为上下两条细线。
+在PasswordPicker中提供了另一种实现，代码如下，以作参考：
 
 ```
      public void drawDecoration(RecyclerWheelPicker picker, Canvas c,
@@ -241,20 +243,20 @@ b.选中区域样式装饰接口
 ```
 这四个方法必须重载
 
-      parseData()方法里，你可以解析自己的数据，这里不关心具体是什么格式的数据，可以是json格式，xml格式等等，
-      不管如何解析，最后返回一个List<Data>即可。
-      当然，也可以用默认的数据解析方式，调用如下：
+ parseData()方法里，你可以解析自己的数据，这里不关心具体是什么格式的数据，可以是json格式，xml格式等等，
+不管如何解析，最后返回一个List<Data>即可。
+当然，也可以用默认的数据解析方式，调用如下：
 ```
       DataParser.parserData(getContext(), builder.resInt, builder.isAll);
 ```
 
 需要注意的是，采用默认解析方式，传入的数据必须严格按照前面介绍的json格式。
 
-      initView()方法里，可以完成一些view的初始化工作，比如滚轮的样式，滚动监听等设置。
+initView()方法里，可以完成一些view的初始化工作，比如滚轮的样式，滚动监听等设置。
 
-      inflateData(List<Data> datas)方法里进行数据的填充，可参考本库提供的已经封装好的滚轮器里的实现。
+inflateData(List<Data> datas)方法里进行数据的填充，可参考本库提供的已经封装好的滚轮器里的实现。
 
-      onWheelScrollChanged方法是滚动接口回调方法，也是必须要重写的，可参考本库提供的已经封装好的滚轮器里的实现。
+onWheelScrollChanged方法是滚动接口回调方法，也是必须要重写的，可参考本库提供的已经封装好的滚轮器里的实现。
 
 其他一些方法：
 ```
