@@ -6,7 +6,7 @@
 
 提供了一下几种选择器，可以直接调用：
 
-'''
+```
   SingleWheelPicker   // 单伦
   DoubleWheelPicker   // 双轮
   TripleWheelPicker   // 三轮
@@ -14,4 +14,4 @@
   TimeWheelPicker     // 时间选择
   NumberRangePicker   // 数字区间选择
   PasswordPicker      // 密码盘
-'''
+```
