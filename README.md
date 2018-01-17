@@ -102,7 +102,7 @@ interface OnPickerListener {
 ```
 
 # 数据格式
-加载到滚轮中的数据采用json格式，例如，一个三级滚轮的json数据必须满足如下格式：
+加载到滚轮中的数据采用json格式，并放在raw资源文件夹里。例如，一个三级滚轮的json数据必须满足如下格式：
 ```
 [
   { "data": "广东",
@@ -206,6 +206,93 @@ showAllItem(boolean all)这个方法可以用来控制是否显示“全部”it
       c.drawRect(decorationRect, decorationPaint);
     }
 ```
-    e
+
+  2 通过继承抽象类WheelPicker来实现自定义滚轮选择器
+  这是一种比较简单的自定义方法，需要做两件事：
+  a.自定义布局
+  b.实现WheelPicker中的抽象方法
+
+  自定义布局很简单，这里不做说明了，布局定义好后只需inflate到WheelPicker中即可。
+
+  WheelPicker其实是一个DialogFragment，因此有以下几个方法需要重载：
+
+```
+      public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+      }
+```
+      布局需要在这个方法中inflate，这个很简单
+
+```
+       abstract protected List<Data> parseData();              // 解析数据
+       abstract protected void initView();                     // 初始化布局
+       abstract protected void inflateData(List<Data> datas);  // 填充数据
+       public void onWheelScrollChanged(RecyclerWheelPicker wheelPicker, boolean isScrolling, int position, Data data)
+```
+      这四个方法必须重载
+
+      parseData()方法里，你可以解析自己的数据，这里不关心具体是什么格式的数据，可以是json格式，xml格式等等，
+      不管如何解析，最后返回一个List<Data>即可。
+      当然，也可以用默认的数据解析方式，调用如下：
+```
+      DataParser.parserData(getContext(), builder.resInt, builder.isAll);
+```
+      需要注意的是，采用默认解析方式，传入的数据必须严格按照前面介绍的json格式。
+
+      initView()方法里，可以完成一些view的初始化工作，比如滚轮的样式，滚动监听等设置。
+
+      inflateData(List<Data> datas)方法里进行数据的填充，可参考本库提供的已经封装好的滚轮器里的实现。
+
+      onWheelScrollChanged方法是滚动接口回调方法，也是必须要重写的，可参考本库提供的已经封装好的滚轮器里的实现。
+
+      其他一些方法：
+```
+      pickerClose()
+```
+      这个方法在滚轮关闭后会被调用，如果需要释放资源，可以在这个方法里完成。这不是一个必须重载的方法。
+
+  3 最后一些彩蛋：
+  在抽象类WheelPicker里，还提供了另外两个用以控制滚轮选择器弹出和弹入动画的方法，这是我在我另一个专门针对
+  自定义dialog动画的库里研究的一些东西，通过这两个方法，可以自由的高度的对dialogFragment的弹出和弹入动画进
+  行自定义，而不是受限于只能用系统提供的通过WindowsManager设置动画的方式。如果你感兴趣可以尝试进行自定义：
+  相关方法
+```
+  setEnterAnimDuration(long duration)          设置进入动画时长
+  setExitAnimDuration(long duration)           设置退出动画时长
+  doEnterAnim(final View contentView, long animDuration)  开始进入动画
+  doExitAnim(final View contentView, long animDuration)   开始退出动画
+```
+
+  看一下doEnterAnim的默认的实现：
+
+```
+  public void doEnterAnim(final View contentView, long animDuration) {
+          if (builder.gravity == Gravity.BOTTOM) {
+              ValueAnimator enterAnimator = ValueAnimator.ofFloat(contentView.getHeight(), 0);
+              enterAnimator.setDuration(animDuration);
+              enterAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                  @Override
+                  public void onAnimationUpdate(ValueAnimator animation) {
+                      float value = (float) animation.getAnimatedValue();
+                      contentView.setTranslationY(value);
+                  }
+              });
+              enterAnimator.start();
+          } else {
+              ScaleAnimation scaleAnimation = new ScaleAnimation(0F, 1.0F, 0F, 1.0F,
+                      Animation.RELATIVE_TO_PARENT, 0.5F, Animation.RELATIVE_TO_PARENT, 0.5F);
+              scaleAnimation.setDuration(animDuration);
+              scaleAnimation.setFillAfter(true);
+              contentView.startAnimation(scaleAnimation);
+          }
+      }
+```
+    简单说明：当滚轮选择器显示在底部时，进入动画为从底部向上弹出，采用的是属性动画；
+    如果不是显示在底部，则进入动画为逐渐放大的补间动画。
+    为什么说时高度自由的自定义动画方式呢？
+    因为你可以在这两个方法里使用系统提供的任何一种动画方式来满足你的奇思妙想！
+
+
+
+
 
 
