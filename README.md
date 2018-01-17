@@ -5,7 +5,7 @@
 ![image](https://github.com/devilist/RecyclerWheelPicker/raw/master/images/image.gif)
 
 # 目前提供的可直接调用的控件
-提供了一下几种选择器，可以直接调用：
+提供了以下几种选择器，可以直接调用：
 
 ```
   SingleWheelPicker   // 单滚轮
