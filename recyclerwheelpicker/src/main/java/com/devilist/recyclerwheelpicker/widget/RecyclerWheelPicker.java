@@ -160,7 +160,7 @@ public class RecyclerWheelPicker extends RecyclerView {
         } else
             dispatchOnScrollEvent(true, NO_POSITION, null);
 
-        if (Math.abs(dy) > 1 && mLayoutManager.mItemHeight > 0) {
+        if (mPickerSoundEnabled && Math.abs(dy) > 1 && mLayoutManager.mItemHeight > 0) {
             int currentTrigger = mLayoutManager.mVerticalOffset / mLayoutManager.mItemHeight;
             if (!mLayoutManager.mIsOverScroll && currentTrigger != mSoundTrigger) {
                 playSound();
