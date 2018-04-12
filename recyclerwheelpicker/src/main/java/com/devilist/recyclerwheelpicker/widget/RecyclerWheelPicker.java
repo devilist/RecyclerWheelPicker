@@ -18,8 +18,10 @@ package com.devilist.recyclerwheelpicker.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Camera;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.AudioManager;
@@ -73,6 +75,9 @@ public class RecyclerWheelPicker extends RecyclerView {
     private WheelPickerLayoutManager mLayoutManager;
     private OnWheelScrollListener mListener;
 
+    private Camera mCamera;
+    private Matrix mMatrix;
+
     public interface OnWheelScrollListener {
         void onWheelScrollChanged(RecyclerWheelPicker wheelPicker, boolean isScrolling, int position, Data data);
     }
@@ -117,6 +122,9 @@ public class RecyclerWheelPicker extends RecyclerView {
         mLayoutManager = new WheelPickerLayoutManager(this);
         super.setLayoutManager(mLayoutManager);
         new LinearSnapHelper().attachToRecyclerView(this);
+
+        mCamera = new Camera();
+        mMatrix = new Matrix();
     }
 
     @Override
@@ -315,26 +323,6 @@ public class RecyclerWheelPicker extends RecyclerView {
 
     @Override
     public boolean drawChild(Canvas canvas, View child, long drawingTime) {
-        // rotateX
-        int centerY = getVerticalSpace() / 2;
-        int childCenterY = child.getTop() + child.getHeight() / 2;
-        float factor = (centerY - childCenterY) * 1f / centerY;
-        float alphaFactor = 1 - 0.7f * Math.abs(factor);
-        child.setAlpha(alphaFactor * alphaFactor * alphaFactor);
-        float scaleFactor = 1 - 0.3f * Math.abs(factor);
-        child.setScaleX(scaleFactor);
-        child.setScaleY(scaleFactor);
-
-        float rotateRadius = 2.0f * centerY / (float) Math.PI;
-        float rad = (centerY - childCenterY) * 1f / rotateRadius;
-        float offsetZ = rotateRadius * (1 - (float) Math.cos(rad));
-        float rotateDeg = rad * 180 / (float) Math.PI;
-        ViewCompat.setZ(child, -offsetZ);
-        child.setRotationX(rotateDeg);
-
-        float offsetY = centerY - childCenterY - rotateRadius * (float) Math.sin(rad) * 1.3f;
-        child.setTranslationY(offsetY);
-
         // resize the text size if text can not be shown completely
         if (child instanceof TextView) {
             String data = ((TextView) child).getText().toString();
@@ -348,7 +336,44 @@ public class RecyclerWheelPicker extends RecyclerView {
             }
         }
 
-        return super.drawChild(canvas, child, drawingTime);
+        // scale child X Y
+        int centerY = getVerticalSpace() / 2;
+        int childCenterY = child.getTop() + child.getHeight() / 2;
+        float factor = (centerY - childCenterY) * 1f / centerY;
+        float alphaFactor = 1 - 0.7f * Math.abs(factor);
+        child.setAlpha(alphaFactor * alphaFactor * alphaFactor);
+        float scaleFactor = 1 - 0.3f * Math.abs(factor);
+        child.setScaleX(scaleFactor);
+        child.setScaleY(scaleFactor);
+
+        // rotateX calculate rotate radius
+        float rotateRadius = 2.0f * centerY / (float) Math.PI;
+        float rad = (centerY - childCenterY) * 1f / rotateRadius;
+        float offsetZ = rotateRadius * (1 - (float) Math.cos(rad));
+        float rotateDeg = rad * 180 / (float) Math.PI;
+        // offset Y for item rotate
+        float offsetY = centerY - childCenterY - rotateRadius * (float) Math.sin(rad) * 1.3f;
+        child.setTranslationY(offsetY);
+
+        // for most of all devices, the childview would be rotated around X-axis perfectly by calling
+        // view's setRotationX(). But, this would not work on huawei devices. so for the compatibility
+        // here we resolve this compatibility-bug through another way by using Camera;
+
+//  ViewCompat.setZ(child, -offsetZ);
+//  child.setRotationX(rotateDeg);
+
+        canvas.save();
+        mCamera.save();
+        mCamera.translate(0, 0, offsetZ);
+        mCamera.rotateX(rotateDeg);
+        mCamera.getMatrix(mMatrix);
+        mCamera.restore();
+        mMatrix.preTranslate(-child.getWidth() / 2, -childCenterY);
+        mMatrix.postTranslate(child.getWidth() / 2, childCenterY);
+        canvas.concat(mMatrix);
+        boolean result = super.drawChild(canvas, child, drawingTime);
+        canvas.restore();
+        return result;
 
 //        // parent centerY ,item centerY
 //        int centerY = (getHeight() - getPaddingTop() - getPaddingBottom()) / 2;
